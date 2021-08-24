@@ -1,0 +1,9 @@
+{
+  "editor.fontSize": 12,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "emmet.excludeLanguages": ["markdown"],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
+}

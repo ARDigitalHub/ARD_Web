@@ -1,0 +1,47 @@
+@media screen and (min-width: 800px) {
+    .links_sidebar{
+        visibility: hidden;
+    }
+    .social_icons_sidebar {
+        visibility: hidden;
+    }
+}
+@media screen and (max-width: 800px) {
+.links_sidebar{
+    color: aquamarine;
+    position: absolute;
+    margin-top: 100%;
+    margin-left: 15%;
+    z-index: 2;
+    height: 0;
+  
+  transition: var(--transition);
+}
+.links_sidebar a {
+  color: var(--clr-grey-3);
+  font-size: 1rem;
+  text-transform: capitalize;
+  letter-spacing: var(--spacing);
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  transition: var(--transition);
+}
+.links_sidebar a:hover {
+  background: var(--clr-primary-8);
+  color: var(--clr-primary-5);
+  padding-left: 1.5rem;
+}
+.social_icons_sidebar a{
+  display: flex;
+  position: absolute;
+    margin-top: 10%;
+    margin-left: 10%;
+    z-index: 2;
+    color:var(--clr-primary-5);
+    transition: var(--transition);
+}
+.loginPageBtn:focus, .signUpPageBtn:focus, .social_icons_sidebar a:focus{
+  animation: bounce 2s ease-in-out infinite;
+}
+
+}

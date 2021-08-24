@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDom from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+//CSS
+import "./index.css";
+import "./style.css";
+//DATA
+//syntax of a named import
+// what every is the variable name in the file imported must be used as it is inside the {} for named import type
+import { bookData } from "./library/books";
+//import code
+//default import syntax.. Also you can import it as Jaba-the-hut and code still works,just dont forget to use it as same in the following function
+import Book from "./library/Book";
+import Nav from "./navbar/navBar";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+
+//CODE uses id for each object
+function Booklist() {
+  return (
+    <div className="booklist">
+      {bookData.map((asa) => {
+        return <Book key={asa.id} {...asa}></Book>;
+      })}
+    </div>
+  );
+}
+
+ReactDom.render(<><Nav />  <Booklist/> </> , document.getElementById("root"));

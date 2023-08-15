@@ -1,10 +1,8 @@
 'use client';
 import React from 'react'
 import Nav from '../../components/Nav'
-import StoreNav from '../../components/StoreNav'
-import type { Metadata } from 'next'
 
-export default function  TeamLayout({
+function SignIn({
     children,
   }: {
     children: React.ReactNode
@@ -16,3 +14,5 @@ export default function  TeamLayout({
     </>
   )
 }
+
+export default SignIn

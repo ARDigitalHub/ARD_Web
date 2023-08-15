@@ -1,21 +1,24 @@
-
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition, Popover } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition, Popover } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
-import DropDown from '../components/DropDown'
+import DropDown from "../components/DropDown";
 import {
   ArrowPathIcon,
   ChartPieIcon,
   CursorArrowRaysIcon,
   FingerPrintIcon,
   SquaresPlusIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+} from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  PhoneIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/20/solid";
 import { HiPaperAirplane } from "react-icons/hi";
 
 export default function Nav() {
@@ -30,30 +33,54 @@ export default function Nav() {
     // };
 
     setProviders();
-  },[]);
+  }, []);
   const navigation = [
-    { name: 'Dashboard', href: '/', current: true },
-    { name: 'Team', href: '/team', current: false },
-    { name: 'Projects', href: '/projects', current: false },
-    { name: 'Calendar', href: '/calendar', current: false },
-  ]
-  
+    { name: "Dashboard", href: "/", current: true },
+    { name: "Team", href: "/team", current: false },
+    { name: "Projects", href: "/projects", current: false },
+    { name: "Calendar", href: "/calendar", current: false },
+  ];
+
   function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(" ");
   }
 
   const solutions = [
-    { name: 'Projects', description: 'Find few of my small projects here', href: '#', icon: ChartPieIcon },
-    { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-    { name: 'Security', description: "Your customers' data will be safe and secure", href: '#', icon: FingerPrintIcon },
-    { name: 'Team', description: 'Meet my team of friends', href: '/team', icon: SquaresPlusIcon },
-    { name: 'Contact Me', description: 'I would to hear from you', href: '/contact-me', icon: ArrowPathIcon },
-  ]
+    {
+      name: "Projects",
+      description: "Find few of my small projects here",
+      href: "#",
+      icon: ChartPieIcon,
+    },
+    {
+      name: "Engagement",
+      description: "Speak directly to your customers",
+      href: "#",
+      icon: CursorArrowRaysIcon,
+    },
+    {
+      name: "Security",
+      description: "Your customers' data will be safe and secure",
+      href: "#",
+      icon: FingerPrintIcon,
+    },
+    {
+      name: "Team",
+      description: "Meet my team of friends",
+      href: "/team",
+      icon: SquaresPlusIcon,
+    },
+    {
+      name: "Contact Me",
+      description: "I would to hear from you",
+      href: "/contact-me",
+      icon: ArrowPathIcon,
+    },
+  ];
   const callsToAction = [
-    { name: 'Watch Videos', href: '#', icon: PlayCircleIcon },
-    { name: 'Watch Memes', href: '/fav-memes', icon: HiPaperAirplane },
-  ]
-
+    { name: "Watch Videos", href: "#", icon: PlayCircleIcon },
+    { name: "Watch Memes", href: "/fav-memes", icon: HiPaperAirplane },
+  ];
 
   return (
     <nav className="w-full flex-between mb-16 pt-3">
@@ -68,7 +95,7 @@ export default function Nav() {
         <p className="logo_text">ARDigital</p>
       </Link>
       <div className="sm:flex hidden">
-        <DropDown solutions={solutions} callsToAction={callsToAction}/>
+        <DropDown solutions={solutions} callsToAction={callsToAction} />
         {isUserLoggedIn ? (
           <div className="flex gap-3 md:gap-5">
             {/* <Link className="outline_btn" href="/contact-me">
@@ -121,20 +148,19 @@ export default function Nav() {
 
             {toggelDropdown && (
               <div className="dropdown">
-                <Link
-                  href="/profile"
-                  className="dropdown_link"
-                  onClick={() => setToggelDropdown(false)}
-                >
-                  My Profile
-                </Link>
-                <Link
-                  href="/create-prompt"
-                  className="dropdown_link"
-                  onClick={() => setToggelDropdown(false)}
-                >
-                  New Post
-                </Link>
+                {solutions.map((item) => (
+                  <div key={item.name}>
+                    <div>
+                      <a
+                        href={item.href}
+                        className="dropdown_link"
+                        onClick={() => setToggelDropdown(false)}
+                      >
+                        {item.name}
+                      </a>
+                    </div>
+                  </div>
+                ))}
                 <button
                   type="button"
                   className="mt-5 w-full black_btn"
@@ -163,7 +189,6 @@ export default function Nav() {
               ))}
           </>
         )}
-        
       </div>
     </nav>
   );

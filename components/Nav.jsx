@@ -161,12 +161,7 @@ export default function Nav() {
                     </div>
                   </div>
                 ))}
-                <Link
-                  href=”/profile”
-                  className="dropdown-link"
-                >
-                  Profile
-                </Link>
+              
                 <button
                   type="button"
                   className="mt-5 w-full black_btn"

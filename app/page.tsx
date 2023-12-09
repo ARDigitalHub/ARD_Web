@@ -11,9 +11,7 @@ export default function Home() {
   return (
     <React.Fragment>
       <Nav/>
-      <Header/>
-      <Form/>
-      <Footer/>
+     
     </React.Fragment>
   )
 }

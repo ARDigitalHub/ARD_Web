@@ -17,7 +17,7 @@ const ClockV1 = ({ time: initial }: Props) => {
     const timer=setInterval (() => {
       console.log(time);
       setTime(new Date());
-    },6000);
+    },60000);
 
     return ()=>clearInterval(timer);
   });

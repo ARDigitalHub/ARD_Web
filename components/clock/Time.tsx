@@ -14,9 +14,7 @@ const Time = ({ time }: Props) => {
   });
   const timeHHMM = timeHHMM_AM.substring(0, timeHHMM_AM.length - 2);
   const amOrPm = timeHHMM_AM.substring(timeHHMM_AM.length - 2);
-  // const hr = time.getHours();
-  const hr = 19;
-  console.log(time.getHours());
+  const hr = time.getHours();
   return (
     <span className="flex self-center font-cursive text-4xl w-full place-content-center ">
       {timeHHMM}

@@ -13,6 +13,16 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        tooltip_show: {
+          '50%' : {  opacity: '20'},
+          '75%' : {  opacity: '75'},
+          '100%' : {  opacity: '100'},
+        }
+      },
+      animation: {
+        tooltip_show: 'tooltip_show 3s ease forwards',
+      }
     },
   },
   plugins: [],

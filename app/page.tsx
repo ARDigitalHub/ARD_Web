@@ -5,15 +5,23 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Form from '../components/Form'
 import SideSlide from '../components/SideSlide'
+import ClockV1 from '../components/clock/ClockV1'
 import React from 'react'
 
+interface intProps {
+  results: String[];
+  openPopup: () => void;
+  heading: String;
+  details: String;
+  curTime: Date;
+}
+
 export default function Home() {
+  const curTime  =new Date();
   return (
     <React.Fragment>
       <Nav/>
-      <Header/>
-      <Form/>
-      <Footer/>
+      <ClockV1 time={curTime.getTime() }  />
     </React.Fragment>
   )
 }

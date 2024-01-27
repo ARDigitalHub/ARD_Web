@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-const opacity=" opacity-20 "
+const opacity=" opacity-40 "
 const transition=" hover:animate-tooltip_show  ";
 const gradient=" bg-gradient-to-br from-pink-900 from-0% via-pink-1200 from-5% to-black-800 to-15% ";
 const border=" border-none border-2 border-pink-900 hover:border-solid rounded-lg  shadow-xl ";

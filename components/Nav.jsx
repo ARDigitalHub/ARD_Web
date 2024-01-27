@@ -22,7 +22,7 @@ import {
 import { HiPaperAirplane } from "react-icons/hi";
 
 export default function Nav() {
-  const isUserLoggedIn = true;
+  const isUserLoggedIn = false;
   const [providers, setProviders] = useState(null);
   const [toggelDropdown, setToggelDropdown] = useState(false);
 
@@ -115,8 +115,8 @@ export default function Nav() {
             </Link>
           </div>
         ) : (
-          <>
-            {providers &&
+          <div className="flex gap-3 md:gap-5">
+            {/* {providers &&
               Object.values(providers).map((provider) => (
                 <button
                   type="button"
@@ -128,8 +128,23 @@ export default function Nav() {
                 >
                   Sign In
                 </button>
-              ))}
-          </>
+              ))} */}
+              <button
+                  type="button"
+                  className="black_btn hover:animate-tooltip_show hover:bg-pink-900 "
+                >
+                  Sign In
+                </button>
+                <Link href="/profile">
+              <Image
+                src="../ard.png"
+                alt="Profile"
+                width={37}
+                height={37}
+                className="rounded-full "
+              />
+            </Link>
+          </div>
         )}
       </div>
 

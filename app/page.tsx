@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import Form from '../components/Form'
 import SideSlide from '../components/SideSlide'
 import ClockV1 from '../components/clock/ClockV1'
+import Intro from '../components/intro/Intro'
 import React from 'react'
 
 interface intProps {
@@ -21,7 +22,11 @@ export default function Home() {
   return (
     <React.Fragment>
       <Nav/>
+      <div className='flex'>
       <ClockV1 time={curTime.getTime() }  />
+      <Intro/>
+      </div>
+      
     </React.Fragment>
   )
 }

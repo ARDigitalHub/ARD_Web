@@ -16,15 +16,25 @@ interface intProps {
   details: String;
   curTime: Date;
 }
-
+const jsonObjectToType1 = {
+  intro: '<>Hi... I am  Hitendra  Patel.</>'
+};
+const jsonObjectToType2 = {
+  job: '{ profession: \"Web Developer.\" }',
+  company: '{ working-at: \"Infosys Pvt. Ltd.\" }',
+  skills:"{ skills:\"Html5, CSS, JS, React, NextJs, NodeJs, Java\"}"
+};
 export default function Home() {
   const curTime  =new Date();
   return (
     <React.Fragment>
       <Nav/>
-      <div className='flex'>
+      <div className='inline-block'>
       <ClockV1 time={curTime.getTime() }  />
-      <Intro/>
+      <div className='lg:flex sm:block'>
+      <Intro  jsonObject={jsonObjectToType1} initialDelay={1000}/>
+      <Intro  jsonObject={jsonObjectToType2} initialDelay={7000}/>
+      </div>
       </div>
       
     </React.Fragment>

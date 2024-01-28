@@ -1,94 +1,81 @@
+import React, { useState, useEffect, useRef } from "react";
 
-import React, { useState, useEffect } from "react";
-let line1Writer=2;
-let line2Writer=0;
-let introText="";
-let completeText1="<>   Hi... I am  Hitendra  Patel.   </>"; 
-let completeText2="{ job: \"Web Developer.\" }"; 
-let text1=true;
-let text2=false;
-let boxClicked=false;
-const writingData={
-    intro:"<>   Hi... I am  Hitendra  Patel.   </>",
-    line1:"{",
-    line2:"  job: \"Web Developer.\"",
-    line3:"}"
+interface SomePropInterface {
+  jsonObject: Record<string, string>;
+  initialDelay: number;
 }
 
-
-
-const Intro = () => {
-    let [line1Writer , setLine1Writer]=useState(0);
-    let [line2Writer , setLine2Writer]=useState(0);
-    let [introductionTag , setIntroductionTag]=useState(introText);
-    let [professionTag , setProfessionTag]=useState(introText);
-    let [reverse , setReverse]=useState(false);
-    let [writingStatus , setWritingStatus]=useState(true);
-
-const textPrinter=(text:String ,index:Number)=>{
-    setTimeout (() => {
-        console.log(text +" "+index);
-    },200);
-
+const Intro: React.FC<SomePropInterface> = ({ jsonObject, initialDelay }) => {
+  const [currentText, setCurrentText] = useState<string>("");
+  const isUnmounted = useRef(false);
+  const textRef = useRef<string>('');
+  const lineIndex = useRef<number>(0);
     
-}
+  useEffect(() => {
+    isUnmounted.current = false;
+    textRef.current = '';
 
-    useEffect(() => {
-        const textBuild=setTimeout (() => {
-            if(line1Writer==0)setIntroductionTag("");
-            if(text1) setIntroductionTag(completeText1.substring(0,line1Writer));
-            if(text1 && line1Writer!=completeText1.length && !reverse){
-                setLine1Writer(line1Writer+1);
+    const typingTimeout = setTimeout(() => {
+      let keys = Object.keys(jsonObject);
+      let currentKey = keys[lineIndex.current];
+      let charIndex = 0;
+      let isDeleting = false;
+
+      const intervalId = setInterval(() => {
+        if (!isUnmounted.current) {
+          const value = jsonObject[currentKey];
+          if (!isDeleting && value) {
+            if (charIndex < value.length) {
+              textRef.current += value.charAt(charIndex);
+              setCurrentText(textRef.current);
+              charIndex++;
+            } else {
+              // Add a new line after typing each value
+              textRef.current += '\n';
+              setCurrentText(textRef.current);
+             
+              // Start deleting after typing is complete
+              if(currentKey!="intro")isDeleting = true;
+              else {isUnmounted.current = true;
+                clearInterval(intervalId);
+                clearTimeout(typingTimeout);}
             }
-            if(text1 && line1Writer==completeText1.length){
-                //reverse=!reverse;
-                //setWritingStatus(false);//STOPPED HERE at 1st Line
-                text1=false;
-                text2=true;
-                
-            }
-            if(line2Writer==0)setProfessionTag("");
-            if(text2) setProfessionTag(completeText2.substring(0,line2Writer));
+          } else if (textRef.current.length > 0) {
+            textRef.current = textRef.current.slice(0, -1);
+            setCurrentText(textRef.current);
+          } else {
+            // Stop deleting after all lines are deleted
+            isDeleting = false;
+
+            // Move to the next key once the entire value is deleted
+            lineIndex.current = (lineIndex.current + 1) % keys.length;
+            currentKey = keys[lineIndex.current];
+            charIndex = 0;
             
-            if(reverse && line2Writer!=0){
-                setLine2Writer(line2Writer-1);
-                console.log("in 1st reverse logic ");
-            }
-            if(reverse && line2Writer==0){
-                text1=true;
-                text2=false;
-                setLine1Writer(line1Writer-1);
-                console.log("in 2st reverse logic ");
-            }
-            if(reverse && line1Writer==0 && line2Writer==0){
-                setReverse(false);
-                console.log("switched reverse ");
-            }
-            if(text2 && line2Writer!=completeText2.length && !reverse){
-                setLine2Writer(line2Writer+1);
-        
-            }
-            if(text2 && line2Writer==completeText2.length){
-                //setWritingStatus(false);
-                setReverse(true);
-            } 
+          }
+        }
+      }, 150);
 
-        },100);
-        
-         if(!writingStatus) return clearTimeout(textBuild);
-      });
+      // Clear the interval and set isUnmounted when the component is unmounted
+      return () => {
+        isUnmounted.current = true;
+        clearInterval(intervalId);
+        clearTimeout(typingTimeout);
+      };
+    }, initialDelay);
 
+    // Clear the timeout if the component is unmounted before the initial delay
+    return () => clearTimeout(typingTimeout);
+  }, [jsonObject, initialDelay]);
 
   return (
-    <div id="introTextElement" className="block sm:w-56 lg:w-[30rem] sm:h-24 lg:h-24  rounded-lg  shadow-xl px-5 py-3 self-center font-cursive text-2xl text-gray-500  border-none border-2 border-pink-900 rounded-lg  shadow-xl">
-    <p >
-        {introductionTag} 
-    </p>
-    <p>
-        {professionTag}
-    </p>
+    <div
+      id="introTextElement"
+      className="inline-block lg:w-[30rem] sm:h-24 lg:h-24  rounded-lg  shadow-xl px-5 py-3 self-center font-cursive text-2xl text-gray-500  border-none border-2 border-pink-900 rounded-lg  shadow-xl"
+    >
+      <pre className="whitespace-pre-wrap">{currentText}</pre>
     </div>
-  )
-}
+  );
+};
 
-export default Intro
+export default Intro;
